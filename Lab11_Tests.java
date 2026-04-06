@@ -24,8 +24,8 @@ public class Lab11_Tests {
             threadA.join(); 
             threadB.join();
         } catch (Exception e) {
-            System.out.println("fTest 1 FAILED");
-            //e.printStackTrace(); 
+            System.out.println("Test 1 FAILED");
+            e.printStackTrace(); 
         }
         //after completing both, in total 200 results will pass
         int size = threadA.getData().size(); 
@@ -50,10 +50,17 @@ public class Lab11_Tests {
         try {
             Thread.sleep(500); 
         } catch (Exception e){
-            System.out.println("failed test2");
+            System.out.println("Test 2 FAILED");
             e.printStackTrace();
         }
 
+        int size = threadA.getData().size(); 
+        if (size >= 10) {
+            System.out.println("Test 2 PASSED: ArrayList has at least 10 entries as expected");
+        } else {
+            System.out.println("Test 2 FAILED: Arraylist has " + size + " entries");
+        }
+        assertTrue(size >= 10); 
     }
 
     /*
@@ -75,5 +82,35 @@ public class Lab11_Tests {
         }
         
         threadB.start();
+        try {
+            threadB.join(); 
+        } catch (Exception e) {
+            System.out.println("Test 3 FAILED");
+            e.printStackTrace()
+        }
+
+        ArrayList<String> result = threadB.getData(); 
+        boolean passed = true; 
+
+        for (int i = 0; i < 10; i++) {
+            if (!result.get(i).startsWith("A3")) {
+                System.out.println("Test 3: FAILED. Expected an A3 entry at index " + i + ", but found " + result.get(i)); 
+                passed = false; 
+                assertTrue(false); 
+            }
+        }
+
+        for (int i = 10; i < 20; i++) {
+            if (!result.get(i).startsWith("B3")) {
+                System.out.println("Test 3: FAILED. Expected B3 at index " + i + ", but found " + result.get(i));
+                passed = false; 
+                assertTrue(false); 
+            }
+        }
+
+        if (passed) {
+            System.out.println("Test 3 Passed. All entries A3 appear before B3");
+        }
+
     }
 }
