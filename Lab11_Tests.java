@@ -15,9 +15,25 @@ public class Lab11_Tests {
         Lab11_Thread threadA = new Lab11_Thread("A1", 100);
         Lab11_Thread threadB = new Lab11_Thread("B1", 100);
 
+        //reset list before this test
+        threadA.setData(new ArrayList<String>()); 
+
         threadA.start();
         threadB.start();
-
+        try {
+            threadA.join(); 
+            threadB.join();
+        } catch (Exception e) {
+            System.out.println("fTest 1 FAILED");
+            //e.printStackTrace(); 
+        }
+        //after completing both, in total 200 results will pass
+        int size = threadA.getData().size(); 
+        if (size == 200) {
+            System.out.println("Test 1 PASSED. ArrayList has 200 entries as expected");
+        } else {
+            System.out.println("Test 1 FAILED. ArrayList has " + size + " entries");
+        }
     }
 
     /*
@@ -34,6 +50,7 @@ public class Lab11_Tests {
         try {
             Thread.sleep(500); 
         } catch (Exception e){
+            System.out.println("failed test2");
             e.printStackTrace();
         }
 
@@ -53,6 +70,7 @@ public class Lab11_Tests {
         try {
             threadA.join();
         } catch (Exception e){
+            System.out.println("failed test3");
             e.printStackTrace();
         }
         
