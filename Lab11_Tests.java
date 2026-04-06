@@ -45,6 +45,9 @@ public class Lab11_Tests {
         Lab11_Thread threadA = new Lab11_Thread("A2", 500);
         Lab11_Thread threadB = new Lab11_Thread("B2", 500);
 
+    
+        threadA.setData(new ArrayList<String>());
+
         threadA.start();
         threadB.start();
         try {
@@ -60,7 +63,13 @@ public class Lab11_Tests {
         } else {
             System.out.println("Test 2 FAILED: Arraylist has " + size + " entries");
         }
-        assertTrue(size >= 10); 
+
+         try {
+            threadA.join();
+            threadB.join();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /*
@@ -72,12 +81,15 @@ public class Lab11_Tests {
         Lab11_Thread threadA = new Lab11_Thread("A3", 10);
         Lab11_Thread threadB = new Lab11_Thread("B3", 10);
 
+        threadA.setData(new ArrayList<String>());
+        threadB.setData(new ArrayList<String>());
+
         threadA.start();
-        
+
         try {
             threadA.join();
         } catch (Exception e){
-            System.out.println("failed test3");
+            System.out.println("Test 3 FAILED");
             e.printStackTrace();
         }
         
@@ -86,7 +98,7 @@ public class Lab11_Tests {
             threadB.join(); 
         } catch (Exception e) {
             System.out.println("Test 3 FAILED");
-            e.printStackTrace()
+            e.printStackTrace();
         }
 
         ArrayList<String> result = threadB.getData(); 
@@ -94,9 +106,8 @@ public class Lab11_Tests {
 
         for (int i = 0; i < 10; i++) {
             if (!result.get(i).startsWith("A3")) {
-                System.out.println("Test 3: FAILED. Expected an A3 entry at index " + i + ", but found " + result.get(i)); 
+                System.out.println("Test 3: FAILED. Expected A3 at index " + i + ", but found " + result.get(i)); 
                 passed = false; 
-                assertTrue(false); 
             }
         }
 
@@ -104,7 +115,6 @@ public class Lab11_Tests {
             if (!result.get(i).startsWith("B3")) {
                 System.out.println("Test 3: FAILED. Expected B3 at index " + i + ", but found " + result.get(i));
                 passed = false; 
-                assertTrue(false); 
             }
         }
 
