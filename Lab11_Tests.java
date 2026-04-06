@@ -34,6 +34,8 @@ public class Lab11_Tests {
         } else {
             System.out.println("Test 1 FAILED. ArrayList has " + size + " entries");
         }
+
+        assertEquals(200, size);
     }
 
     /*
@@ -63,6 +65,8 @@ public class Lab11_Tests {
         } else {
             System.out.println("Test 2 FAILED: Arraylist has " + size + " entries");
         }
+
+        assertEquals(true, size >= 10);
 
          try {
             threadA.join();
@@ -109,6 +113,7 @@ public class Lab11_Tests {
                 System.out.println("Test 3: FAILED. Expected A3 at index " + i + ", but found " + result.get(i)); 
                 passed = false; 
             }
+            assertEquals("Expected A3 entry at index " + i, true, result.get(i).startsWith("A3"));
         }
 
         for (int i = 10; i < 20; i++) {
@@ -116,11 +121,13 @@ public class Lab11_Tests {
                 System.out.println("Test 3: FAILED. Expected B3 at index " + i + ", but found " + result.get(i));
                 passed = false; 
             }
+            assertEquals("Expected B3 entry at index " + i, true, result.get(i).startsWith("B3"));
         }
 
         if (passed) {
             System.out.println("Test 3 Passed. All entries A3 appear before B3");
         }
+
 
     }
 }
